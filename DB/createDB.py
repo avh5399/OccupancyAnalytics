@@ -23,4 +23,7 @@ cursor.execute("SELECT * FROM rooms")
 #print reuslts 
 results = cursor.fetchall()
 print(results)
-print(type(results))
+
+#close the connections to the DB
+cursor.close()
+connection.close()
