@@ -58,12 +58,12 @@ rooms(room_id INTEGER PRIMARY KEY, occupancy TEXT)"""
 
 cursor.execute(createRoom_cmd)
 
-testdata1 = sensorData(1,10)
+testdata1 = sensorData(1,12)
 testdata2 = sensorData(2,13)
 
 #command to add entries to rooms db
 cursor.execute("INSERT INTO rooms VALUES ("+str(testdata1.room_id)+", "+str(testdata1.occupancy)+")")
-cursor.execute("INSERT INTO rooms VALUES (2, '13')")
+cursor.execute("INSERT INTO rooms VALUES ("+str(testdata2.room_id)+", "+str(testdata2.occupancy)+")")
 cursor.execute("INSERT INTO rooms VALUES (3, '15')")
 cursor.execute("INSERT INTO rooms VALUES (4, '20')")
 
