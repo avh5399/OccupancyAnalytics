@@ -39,13 +39,13 @@ def publishSensorData(topic, data):
     client.publish(topic, data)
     print("Published: " +str(data)+ " to topic " +str(topic)+"\n")
 
-def sendSensorDataToDB(data):
-    data_json = [
-        {
-            'room_id': data.room_id,
-            'occupancy': data.occupancy
-        }
-    ]
+# def sendSensorDataToDB(data):
+#     data_json = [
+#         {
+#             'room_id': data.room_id,
+#             'occupancy': data.occupancy
+#         }
+#     ]
 
 
 #connection and cursor
