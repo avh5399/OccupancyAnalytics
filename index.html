@@ -15,7 +15,7 @@
     <div class="container">
     <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="row">
                 <canvas id="pieDataAvg"></canvas>
                 <div class="col-md-6">
@@ -24,16 +24,31 @@
                 
                 <canvas id="pieDataPeak"></canvas>
                 <div class="col-md-6">
-                    <p>Peak Occupancy</p>
+                    
                 </div>
                 
             </div>
+            
+            <div class="info">
+                <h3>Building Name</h3>
+                <h6>Room#: </h6>
+                <h6>Total Area: </h6>
+                <h6>Total Workstation: </h6>
+            </div>
         </div>
-        <div class="col-md-9"><canvas id="myChart"></canvas></div>
+        <div class="col-md-8"><canvas id="myChart"></canvas></div>
         
     </div>
     </div>
 </body>
+    
+    <style>
+        .info{
+            border-style: solid;
+            padding: 10px;
+            margin: 60px;
+        }
+    </style>
     
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
