@@ -15,7 +15,20 @@
     <div class="container">
     <div class="row">
 
-        <div class="col-md-3"><p class="p1"><span class="s1">Hello</span></p></div>
+        <div class="col-md-3">
+            <div class="row">
+                <canvas id="pieDataAvg"></canvas>
+                <div class="col-md-6">
+                    
+                </div>
+                
+                <canvas id="pieDataPeak"></canvas>
+                <div class="col-md-6">
+                    <p>Peak Occupancy</p>
+                </div>
+                
+            </div>
+        </div>
         <div class="col-md-9"><canvas id="myChart"></canvas></div>
         
     </div>
@@ -29,22 +42,90 @@
 var ctx = document.getElementById('myChart').getContext('2d');
 var chart = new Chart(ctx, {
 // The type of chart we want to create
-type: 'line',
+type: 'bar',
 
 // The data for our dataset
 data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45]
+    labels: ['Oct', 'Nov', 'Dec', 'Jan'],
+        datasets: [{
+        barPercentage: 0.5,
+        barThickness: 6,
+        maxBarThickness: 8,
+        minBarLength: 2,
+        //backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)','rgb(2, 99, 182)','rgb(145, 145, 145)'],
+        backgroundColor: 'rgb(2, 99, 182)',
+        data: [10, 20, 30, 40]
     }]
 },
 
 // Configuration options go here
-    options: {}
+   
+    options: {
+        title: {
+            display: true,
+            text: 'Bar'
+        },    
+        scales: {
+            yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }
+            ]
+        }   
+    }                    
 });
+    
+    
+
+ctx = document.getElementById('pieDataAvg').getContext('2d');
+var chart = new Chart(ctx, {
+// The type of chart we want to create
+type: 'doughnut',
+
+// The data for our dataset
+data: {
+    labels: ['Filled in', 'Total'],
+    datasets: [{
+        label: 'My First dataset',
+        backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
+        data: [60,40]
+    }]
+},
+
+// Configuration options go here
+   
+    options: {title: {
+            display: true,
+            text: 'Average Occupancy'
+        }}
+});
+    
+    
+ctx = document.getElementById('pieDataPeak').getContext('2d');
+var chart = new Chart(ctx, {
+// The type of chart we want to create
+type: 'doughnut',
+
+// The data for our dataset
+data: {
+    labels: ['Filled in', 'Total'],
+    datasets: [{
+        label: 'My First dataset',
+        backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
+        data: [60,40]
+    }]
+},
+
+// Configuration options go here
+   
+    options: {title: {
+            display: true,
+            text: 'Peak Occupancy'
+        }}
+});
+    
 </script>
     
 </html>
