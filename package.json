@@ -18,6 +18,7 @@
   "homepage": "https://github.com/avh5399/OccupancyAnalytics#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "tedious": "^9.2.1"
   }
 }
