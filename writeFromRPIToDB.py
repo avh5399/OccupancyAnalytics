@@ -28,19 +28,4 @@ with pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+da
         while row:
             print (str(row[0]) + " " + str(row[1]))
             row = cursor.fetchone()
-
-####################
-
-# Specifying the ODBC driver, server name, database, etc. directly
-#cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=room-occupancy.database.windows.net;DATABASE=RoomsDB;UID=user;PWD=Capstone20')
-
-# Create a cursor from the connection
-#cursor = cnxn.cursor()
-
-#if the room does not exist
-#cursor.execute("insert into rooms(room_id, occupancy) values (?, ?)", occupancyValue, roomID)
-
-#else [if] the room does exist
-#cursor.execute("UPDATE rooms SET occupancy = ? WHERE room_id = ?;", occupancyValue, roomID)
-
-#cnxn.commit()
+            
