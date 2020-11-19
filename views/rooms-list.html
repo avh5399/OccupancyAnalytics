@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Fetch rooms db data using MySQL and Node.js</title>
+</head>
+<body>
+    <div class="table-data">
+<h2>Display rooms DB Data using Node.js & MySQL</h2>
+    <table border="1">
+        <tr>
+            <th>Room_ID</th>
+            <th>Occupancy</th>
+
+        </tr>
+        
+        <%
+        if(userData.length!=0){
+        var i=1;
+        userData.forEach(function(data){
+        %>
+        <tr>
+            <td><%=i; %></td>
+            <td><%=data.room_id %></td>
+            <td><%=data.occupancy %></td>
+        </tr>
+        <%  i++; }) %>
+        <% } else{ %>
+            <tr>
+                <td colspan="7">No Data Found</td>
+            </tr>
+        <% } %>
+    </table>
+    </div>
+</body>
+</html>
+
+<style> 
+table, td, th { 
+ border: 1px solid #ddd; 
+ text-align: left; 
+} 
+table { 
+ border-collapse: collapse; 
+ width: 50%; 
+} 
+.table-data{ 
+ position: relative; 
+ left:150px; 
+ top:100px; 
+} 
+th, td { 
+ padding: 15px; 
+} 
+</style>
