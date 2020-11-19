@@ -66,10 +66,8 @@ function queryDatabase() {
 
 
 //When the page navigates to /
-app.get('/', function(req,resp){
-    
-    
-    
+app.get('/test', function(req,resp){
+
     console.log("Reading rows from the Table...");
 
     // Read all rows from table
@@ -113,5 +111,10 @@ app.get('/', function(req,resp){
         
     });
 })
+
+// default URL for website
+app.use('/', function(req,res){
+  res.sendFile(__dirname + '/index.html');
+});
 
 app.listen(1337);
