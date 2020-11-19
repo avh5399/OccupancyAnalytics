@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1894.6">
+    
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+    
+<body>
+    <div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="row">
+                <canvas id="pieDataAvg"></canvas>
+                <div class="col-md-6">
+                    
+                </div>
+                
+                <canvas id="pieDataPeak"></canvas>
+                <div class="col-md-6">
+                    
+                </div>
+                
+            </div>
+            
+            <div class="info">
+                <h3>Building Name</h3>
+                <h6>Room#: </h6>
+                <h6>Total Area: </h6>
+                <h6>Total Workstation: </h6>
+            </div>
+        </div>
+        <div class="col-md-8"><canvas id="myChart"></canvas></div>
+        
+    </div>
+    </div>
+</body>
+
+
+    
+<style>
+    .info{
+        border-style: solid;
+        padding: 10px;
+        margin: 60px;
+    }
+</style>
+    
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script>
+
+alert("<%= username %>");
+total = <%= tot %>;
+    
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+// The type of chart we want to create
+type: 'bar',
+
+// The data for our dataset
+data: {
+    labels: ['Oct', 'Nov', 'Dec', 'Jan'],
+        datasets: [{
+        barPercentage: 0.5,
+        barThickness: 6,
+        maxBarThickness: 8,
+        minBarLength: 2,
+        //backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)','rgb(2, 99, 182)','rgb(145, 145, 145)'],
+        backgroundColor: 'rgb(2, 99, 182)',
+        data: [total, 5123300, 30, 40]
+    }]
+},
+
+// Configuration options go here
+   
+    options: {
+        title: {
+            display: true,
+            text: 'Bar'
+        },    
+        scales: {
+            yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }
+            ]
+        }   
+    }                    
+});
+    
+    
+
+ctx = document.getElementById('pieDataAvg').getContext('2d');
+var chart = new Chart(ctx, {
+// The type of chart we want to create
+type: 'doughnut',
+
+// The data for our dataset
+data: {
+    labels: ['Filled in', 'Total'],
+    datasets: [{
+        label: 'My First dataset',
+        backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
+        data: [60,40]
+    }]
+},
+
+// Configuration options go here
+   
+    options: {title: {
+            display: true,
+            text: 'Average Occupancy'
+        }}
+});
+    
+    
+ctx = document.getElementById('pieDataPeak').getContext('2d');
+var chart = new Chart(ctx, {
+// The type of chart we want to create
+type: 'doughnut',
+
+// The data for our dataset
+data: {
+    labels: ['Filled in', 'Total'],
+    datasets: [{
+        label: 'My First dataset',
+        backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
+        data: [60,40]
+    }]
+},
+
+// Configuration options go here
+   
+    options: {title: {
+            display: true,
+            text: 'Peak Occupancy'
+        }}
+});
+    
+</script>
+    
+</html>

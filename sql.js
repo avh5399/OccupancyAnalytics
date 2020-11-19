@@ -4,6 +4,9 @@ var mysql = require('mysql');
 var app = express();
 var num = 0;
 
+//Set view engine to ejs
+app.set("view engine", "ejs"); 
+
 // Create connection to database
 const config = {
   authentication: {
@@ -100,8 +103,15 @@ app.get('/test', function(req,resp){
     })
     .on("doneProc", () => {
       console.log('total' + total);
-      resp.send('People in room: ' + total);
+      //resp.send('People in room: ' + total);
+      var user ="flame";
+      resp.render('index', {
+        username: user,
+        tot:total
+      });
+      // resp.render("index", { username: user }); 
     });
+
 
     connection.execSql(request);
 })
