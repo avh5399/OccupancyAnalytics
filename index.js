@@ -1,3 +1,4 @@
+// mysql.server start &  mysql.server stop
 var express = require('express');
 var mysql = require('mysql');
 var app = express();

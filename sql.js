@@ -82,34 +82,28 @@ app.get('/test', function(req,resp){
         }
       }
     );
-
-    request.on("row", columns => {
+    var total = 0;
+    
+    request
+    .on("row", columns => {
       columns.forEach(column => {
         //console.log("%s\t%s", column.metadata.colName, column.value);
           if(column.metadata.colName == "room_id"){
               console.log("%s\t%s", "Room ID: ", column.value);
           }else{
               console.log("%s\t%s", "Occupancy Count: ", column.value);
+              total = parseInt(total) + parseInt(column.value);
+              console.log(total);
           }
           
       });
+    })
+    .on("doneProc", () => {
+      console.log('total' + total);
+      resp.send('People in room: ' + total);
     });
 
     connection.execSql(request);
-    
-    
-    connection.query("SELECT * FROM Test", function(error, rows, fields){
-        //callback function
-        if(!!error){
-            console.log("ERROR IN QUERY");
-        }else{
-            console.log("SUCCESS QUERY");
-            // console.log(rows); for all
-            console.log(rows[0].idTest);
-            resp.send('People in room: ' + rows[0].idTest)
-        }
-        
-    });
 })
 
 // default URL for website
