@@ -69,7 +69,7 @@ function queryDatabase() {
 
 
 //When the page navigates to /
-app.get('/test', function(req,resp){
+app.get('/', function(req,resp){
 
     console.log("Reading rows from the Table...");
 
@@ -117,7 +117,7 @@ app.get('/test', function(req,resp){
 })
 
 // default URL for website
-app.use('/', function(req,res){
+app.use('/test', function(req,res){
   res.sendFile(__dirname + '/index.html');
 });
 
