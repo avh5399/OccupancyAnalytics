@@ -57,95 +57,95 @@
 
 <script>
 
-alert("<%= username %>");
-total = <%= tot %>;
-    
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-// The type of chart we want to create
-type: 'bar',
+    alert("<%= username %>");
+    total = <%= tot %>;
+        
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
 
-// The data for our dataset
-data: {
-    labels: ['Oct', 'Nov', 'Dec', 'Jan'],
+    // The data for our dataset
+    data: {
+        labels: ['Oct', 'Nov', 'Dec', 'Jan'],
+            datasets: [{
+            barPercentage: 0.5,
+            barThickness: 6,
+            maxBarThickness: 8,
+            minBarLength: 2,
+            //backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)','rgb(2, 99, 182)','rgb(145, 145, 145)'],
+            backgroundColor: 'rgb(2, 99, 182)',
+            data: [total, 5123300, 30, 40]
+        }]
+    },
+
+    // Configuration options go here
+    
+        options: {
+            title: {
+                display: true,
+                text: 'Bar'
+            },    
+            scales: {
+                yAxes: [
+                    {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                    }
+                ]
+            }   
+        }                    
+    });
+        
+        
+
+    ctx = document.getElementById('pieDataAvg').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'doughnut',
+
+    // The data for our dataset
+    data: {
+        labels: ['Filled in', 'Total'],
         datasets: [{
-        barPercentage: 0.5,
-        barThickness: 6,
-        maxBarThickness: 8,
-        minBarLength: 2,
-        //backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)','rgb(2, 99, 182)','rgb(145, 145, 145)'],
-        backgroundColor: 'rgb(2, 99, 182)',
-        data: [total, 5123300, 30, 40]
-    }]
-},
+            label: 'My First dataset',
+            backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
+            data: [60,40]
+        }]
+    },
 
-// Configuration options go here
-   
-    options: {
-        title: {
-            display: true,
-            text: 'Bar'
-        },    
-        scales: {
-            yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true
-                  }
-                }
-            ]
-        }   
-    }                    
-});
+    // Configuration options go here
     
+        options: {title: {
+                display: true,
+                text: 'Average Occupancy'
+            }}
+    });
+        
+        
+    ctx = document.getElementById('pieDataPeak').getContext('2d');
+    var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'doughnut',
+
+    // The data for our dataset
+    data: {
+        labels: ['Filled in', 'Total'],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
+            data: [60,40]
+        }]
+    },
+
+    // Configuration options go here
     
-
-ctx = document.getElementById('pieDataAvg').getContext('2d');
-var chart = new Chart(ctx, {
-// The type of chart we want to create
-type: 'doughnut',
-
-// The data for our dataset
-data: {
-    labels: ['Filled in', 'Total'],
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
-        data: [60,40]
-    }]
-},
-
-// Configuration options go here
-   
-    options: {title: {
-            display: true,
-            text: 'Average Occupancy'
-        }}
-});
-    
-    
-ctx = document.getElementById('pieDataPeak').getContext('2d');
-var chart = new Chart(ctx, {
-// The type of chart we want to create
-type: 'doughnut',
-
-// The data for our dataset
-data: {
-    labels: ['Filled in', 'Total'],
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
-        data: [60,40]
-    }]
-},
-
-// Configuration options go here
-   
-    options: {title: {
-            display: true,
-            text: 'Peak Occupancy'
-        }}
-});
+        options: {title: {
+                display: true,
+                text: 'Peak Occupancy'
+            }}
+    });
     
 </script>
     

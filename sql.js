@@ -2,7 +2,6 @@ const { Connection, Request } = require("tedious");
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
-var num = 0;
 
 //Set view engine to ejs
 app.set("view engine", "ejs"); 
