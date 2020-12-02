@@ -74,7 +74,7 @@ app.get('/', function(req,resp){
 
     // Read all rows from table
     const request = new Request(
-      `SELECT * FROM rooms`,
+      `SELECT * FROM occupied`,
       (err, rowCount) => {
         if (err) {
           console.log("ERROR:::");
@@ -84,29 +84,55 @@ app.get('/', function(req,resp){
         }
       }
     );
+
+
     var total = 0;
+    var room_id = 0;
+    var total_workStations = 0;
+    var maxOccupancy = 0;
+    var currentOccupancy = 0;
+    var peakOccupancy = 0;
     
-    request
-    .on("row", columns => {
+    request.on("row", columns => {
       columns.forEach(column => {
         //console.log("%s\t%s", column.metadata.colName, column.value);
-          if(column.metadata.colName == "room_id"){
-              console.log("%s\t%s", "Room ID: ", column.value);
-          }else{
-              console.log("%s\t%s", "Occupancy Count: ", column.value);
-              total = parseInt(total) + parseInt(column.value);
-              console.log(total);
+          if(column.metadata.colName == "sensor_id"){
+            console.log("%s\t%s", "Sensor ID: ", column.value);
+          }else if(column.metadata.colName == "room_id") {
+            console.log("%s\t%s", "Room ID: ", column.value);
+            room_id = parseInt(column.value);
+          }else if(column.metadata.colName == "day_occupied") {
+            console.log("%s\t%s", "Day Occupied: ", column.value);
+          }else if(column.metadata.colName == "TotalOccupancy") {
+            console.log("%s\t%s", "Total/Max Occupancy: ", column.value);
+            maxOccupancy = parseInt(column.value);
+          }else if(column.metadata.colName == "currentOccupancy") {
+            console.log("%s\t%s", "Current Occupancy: ", column.value);
+            total = parseInt(total) + parseInt(column.value);
+            currentOccupancy = parseInt(column.value);
+          }else if(column.metadata.colName == "totalWorkstations") {
+            console.log("%s\t%s", "Total Workstations: ", column.value);
+            total_workStations = parseInt(column.value);
+          }else if(column.metadata.colName == "peakOccupancy") {
+            console.log("%s\t%s", "Peak Occupancy: ", column.value);
+            peakOccupancy = parseInt(column.value);
+            console.log("------------------");
           }
           
       });
     })
     .on("doneProc", () => {
-      console.log('total' + total);
+      console.log('total: ' + total);
       //resp.send('People in room: ' + total);
       var user ="flame";
       resp.render('index', {
         username: user,
-        tot:total
+        tot:total,
+        totalWorkStation: total_workStations,
+        roomID: room_id,
+        maxOcc: maxOccupancy,
+        currOcc: currentOccupancy,
+        peakOcc: peakOccupancy
       });
       // resp.render("index", { username: user }); 
     });

@@ -31,9 +31,9 @@
             
             <div class="info">
                 <h3>Building Name</h3>
-                <h6>Room#: </h6>
+                <h6>Room#: <%= roomID %></h6>
                 <h6>Total Area: </h6>
-                <h6>Total Workstation: </h6>
+                <h6>Total Workstation: <%= totalWorkStation %></h6>
             </div>
         </div>
         <div class="col-md-8"><canvas id="myChart"></canvas></div>
@@ -57,9 +57,12 @@
 
 <script>
 
-    alert("<%= username %>");
+    //alert("<%= username %>");
     total = <%= tot %>;
-        
+    maxOccupancy = <%= maxOcc %>;
+    currentOccupancy = <%= currOcc %>;
+    var peakOccupancy = <%= peakOcc %>;
+
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -75,7 +78,7 @@
             minBarLength: 2,
             //backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)','rgb(2, 99, 182)','rgb(145, 145, 145)'],
             backgroundColor: 'rgb(2, 99, 182)',
-            data: [total, 5123300, 30, 40]
+            data: [total, 200, 30, 40]
         }]
     },
 
@@ -107,11 +110,11 @@
 
     // The data for our dataset
     data: {
-        labels: ['Filled in', 'Total'],
+        labels: ['Current Occupancy', 'Remaining Occupancy'],
         datasets: [{
             label: 'My First dataset',
             backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
-            data: [60,40]
+            data: [currentOccupancy,(maxOccupancy - currentOccupancy)]
         }]
     },
 
@@ -119,7 +122,7 @@
     
         options: {title: {
                 display: true,
-                text: 'Average Occupancy'
+                text: 'Current Occupancy'
             }}
     });
         
@@ -131,11 +134,11 @@
 
     // The data for our dataset
     data: {
-        labels: ['Filled in', 'Total'],
+        labels: ['Peak Occupancy', 'Remaining Occupancy'],
         datasets: [{
             label: 'My First dataset',
             backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)'],
-            data: [60,40]
+            data: [peakOccupancy,(maxOccupancy - peakOccupancy)]
         }]
     },
 
