@@ -66,12 +66,15 @@ function queryDatabase() {
   connection.execSql(request);
 }
 
+app.get('/', function(req, res) {
+  res.send("URL MISSING ID - for example: http://localhost:1337/7");
+});
 
 //When the page navigates to /
-app.get('/', function(req,resp){
+app.get('/:id', function(req,resp){
 
     var total = 0;
-    var room_id = 0;
+    var room_id = req.params.id;
     var total_workStations = 0;
     var maxOccupancy = 0;
     var currentOccupancy = 0;
@@ -81,12 +84,18 @@ app.get('/', function(req,resp){
     var prevTwoMonthTotal = 0;
     var prevThreeMonthTotal = 0;
     var prevFourMonthTotal = 0;
-  
+
+    var sqlCommand = "SELECT * FROM occupied WHERE room_id = ";
+    sqlCommand = sqlCommand.concat(room_id);
+
+    var sqlCommandTwo = "SELECT * FROM sensors WHERE room_id = ";
+    sqlCommandTwo = sqlCommandTwo.concat(room_id);
+    
     console.log("Reading rows from the Table...");
 
     // Read all rows from table
     const request = new Request(
-      `SELECT * FROM occupied`, //where room id = X
+      sqlCommand,
       (err, rowCount) => {
         if (err) {
           console.log("ERROR:::");
@@ -99,7 +108,7 @@ app.get('/', function(req,resp){
 
 
     const SecondRequest = new Request(
-      `SELECT * FROM sensors`, //where room id = X
+      sqlCommandTwo,
       (err, rowCount) => {
         if (err) {
           console.log("ERROR:::");
@@ -112,7 +121,7 @@ app.get('/', function(req,resp){
 
     SecondRequest.on("row", columns => {
       columns.forEach(column => {
-          if(column.metadata.colName == "occupancy") { //or here, if room_id = given && colName == "occupancy"?
+          if(column.metadata.colName == "occupancy") {
             console.log("%s\t%s", "Sensor Occupancy: ", column.value);
             currentOccupancy = parseInt(currentOccupancy) + parseInt(column.value);
           }
