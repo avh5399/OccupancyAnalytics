@@ -30,7 +30,7 @@ connection.on("connect", err => {
     console.error(err.message);
   } else {
     console.log("CONNECTED!!!");
-    queryDatabase();
+    //queryDatabase();
   }
 });
 
@@ -40,7 +40,7 @@ function queryDatabase() {
 
   // Read all rows from table
   const request = new Request(
-    `SELECT * FROM rooms`,
+    `SELECT * FROM sensors`,
     (err, rowCount) => {
       if (err) {
         console.log("ERROR:::");
@@ -70,11 +70,23 @@ function queryDatabase() {
 //When the page navigates to /
 app.get('/', function(req,resp){
 
+    var total = 0;
+    var room_id = 0;
+    var total_workStations = 0;
+    var maxOccupancy = 0;
+    var currentOccupancy = 0;
+    var peakOccupancy = 0;
+    var sensorAMT = 0;
+    var prevOneMonthTotal = 0;
+    var prevTwoMonthTotal = 0;
+    var prevThreeMonthTotal = 0;
+    var prevFourMonthTotal = 0;
+  
     console.log("Reading rows from the Table...");
 
     // Read all rows from table
     const request = new Request(
-      `SELECT * FROM occupied`,
+      `SELECT * FROM occupied`, //where room id = X
       (err, rowCount) => {
         if (err) {
           console.log("ERROR:::");
@@ -86,12 +98,34 @@ app.get('/', function(req,resp){
     );
 
 
-    var total = 0;
-    var room_id = 0;
-    var total_workStations = 0;
-    var maxOccupancy = 0;
-    var currentOccupancy = 0;
-    var peakOccupancy = 0;
+    const SecondRequest = new Request(
+      `SELECT * FROM sensors`, //where room id = X
+      (err, rowCount) => {
+        if (err) {
+          console.log("ERROR:::");
+          console.error(err.message);
+        } else {
+          console.log(`${rowCount} row(s) returned`);
+        }
+      }
+    );
+
+    SecondRequest.on("row", columns => {
+      columns.forEach(column => {
+          if(column.metadata.colName == "occupancy") { //or here, if room_id = given && colName == "occupancy"?
+            console.log("%s\t%s", "Sensor Occupancy: ", column.value);
+            currentOccupancy = parseInt(currentOccupancy) + parseInt(column.value);
+          }
+      });
+    })
+    .on("requestCompleted", () => {
+      console.log('total: ' + total);
+      connection.execSql(request);
+    });
+
+    
+
+
     
     request.on("row", columns => {
       columns.forEach(column => {
@@ -103,42 +137,55 @@ app.get('/', function(req,resp){
             room_id = parseInt(column.value);
           }else if(column.metadata.colName == "day_occupied") {
             console.log("%s\t%s", "Day Occupied: ", column.value);
-          }else if(column.metadata.colName == "TotalOccupancy") {
-            console.log("%s\t%s", "Total/Max Occupancy: ", column.value);
+          }else if(column.metadata.colName == "MaxOccupancy") {
+            console.log("%s\t%s", "Max Occupancy: ", column.value);
             maxOccupancy = parseInt(column.value);
-          }else if(column.metadata.colName == "currentOccupancy") {
-            console.log("%s\t%s", "Current Occupancy: ", column.value);
-            total = parseInt(total) + parseInt(column.value);
-            currentOccupancy = parseInt(column.value);
+          }else if(column.metadata.colName == "sensorAMT") {
+            console.log("%s\t%s", "Sensor AMT: ", column.value);
+            sensorAMT = parseInt(column.value);
           }else if(column.metadata.colName == "totalWorkstations") {
             console.log("%s\t%s", "Total Workstations: ", column.value);
             total_workStations = parseInt(column.value);
           }else if(column.metadata.colName == "peakOccupancy") {
             console.log("%s\t%s", "Peak Occupancy: ", column.value);
             peakOccupancy = parseInt(column.value);
+          }else if(column.metadata.colName == "prevOneMonthTotal"){
+            console.log("%s\t%s", "prevOneMonthTotal: ", column.value);
+            prevOneMonthTotal = parseInt(column.value);
+          }else if(column.metadata.colName == "prevTwoMonthTotal"){
+            console.log("%s\t%s", "prevTwoMonthTotal: ", column.value);
+            prevTwoMonthTotal = parseInt(column.value);
+          }else if(column.metadata.colName == "prevThreeMonthTotal"){
+            console.log("%s\t%s", "prevThreeMonthTotal: ", column.value);
+            prevThreeMonthTotal = parseInt(column.value);
+          }else if(column.metadata.colName == "prevFourMonthTotal"){
+            console.log("%s\t%s", "prevFourMonthTotal: ", column.value);
+            prevFourMonthTotal = parseInt(column.value);
             console.log("------------------");
           }
-          
+
       });
     })
-    .on("doneProc", () => {
+    .on("requestCompleted", () => {
       console.log('total: ' + total);
       //resp.send('People in room: ' + total);
-      var user ="flame";
       resp.render('index', {
-        username: user,
         tot:total,
         totalWorkStation: total_workStations,
         roomID: room_id,
         maxOcc: maxOccupancy,
         currOcc: currentOccupancy,
-        peakOcc: peakOccupancy
+        peakOcc: peakOccupancy,
+        prevOneMonth: prevOneMonthTotal,
+        prevTwoMonth: prevTwoMonthTotal,
+        prevThreeMonth: prevThreeMonthTotal,
+        prevFourMonth: prevFourMonthTotal
       });
       // resp.render("index", { username: user }); 
     });
 
 
-    connection.execSql(request);
+    connection.execSql(SecondRequest);
 })
 
 // default URL for website

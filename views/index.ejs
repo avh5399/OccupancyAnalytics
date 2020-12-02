@@ -32,7 +32,7 @@
             <div class="info">
                 <h3>Building Name</h3>
                 <h6>Room#: <%= roomID %></h6>
-                <h6>Total Area: </h6>
+                <h6>Max Occupancy: <%= maxOcc %> </h6>
                 <h6>Total Workstation: <%= totalWorkStation %></h6>
             </div>
         </div>
@@ -57,11 +57,15 @@
 
 <script>
 
-    //alert("<%= username %>");
-    total = <%= tot %>;
-    maxOccupancy = <%= maxOcc %>;
-    currentOccupancy = <%= currOcc %>;
+    var total = <%= tot %>;
+    //alert("<%= tot %>");
+    var maxOccupancy = <%= maxOcc %>;
+    var currentOccupancy = <%= currOcc %>;
     var peakOccupancy = <%= peakOcc %>;
+    var prevOneMonthTotal = <%= prevOneMonth %>;
+    var prevTwoMonthTotal = <%= prevTwoMonth %>;
+    var prevThreeMonthTotal = <%= prevThreeMonth %>;
+    var prevFourMonthTotal = <%= prevFourMonth %>;
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
@@ -78,7 +82,7 @@
             minBarLength: 2,
             //backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)','rgb(2, 99, 182)','rgb(145, 145, 145)'],
             backgroundColor: 'rgb(2, 99, 182)',
-            data: [total, 200, 30, 40]
+            data: [prevOneMonthTotal, prevTwoMonthTotal, prevThreeMonthTotal, prevFourMonthTotal]
         }]
     },
 
