@@ -10,20 +10,21 @@ app.set("view engine", "ejs");
 const config = {
   authentication: {
     options: {
-      userName: "user",
-      password: "Capstone20"
+      userName: "user", //FILL THIS OUT
+      password: "Capstone20" //FILL THIS OUT
     },
     type: "default"
   },
-  server: "room-occupancy.database.windows.net",
+  server: "room-occupancy.database.windows.net", //FILL THIS OUT
   options: {
-    database: "RoomsDB",
-    encrypt: true
+    database: "RoomsDB", //FILL THIS OUT
+    encrypt: true,
+    validateBulkLoadParameters: false
   }
 };
 
 const connection = new Connection(config);
-
+connection.connect();
 // Attempt to connect and execute queries if connection goes through
 connection.on("connect", err => {
   if (err) {
