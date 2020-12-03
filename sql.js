@@ -30,7 +30,7 @@ connection.on("connect", err => {
   if (err) {
     console.error(err.message);
   } else {
-    console.log("CONNECTED!!!");
+    console.log("CONNECTED!!! Running on http://localhost:1337/ [id number]");
     //queryDatabase();
   }
 });
