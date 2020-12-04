@@ -198,9 +198,6 @@ app.get('/:id', function(req,resp){
     connection.execSql(SecondRequest);
 })
 
-// default URL for website
-app.use('/test', function(req,res){
-  res.sendFile(__dirname + '/index.html');
-});
+
 
 app.listen(1337);
