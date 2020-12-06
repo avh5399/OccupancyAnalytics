@@ -74,12 +74,13 @@
 
     // The data for our dataset
     data: {
-        labels: ['Oct', 'Nov', 'Dec', 'Jan'],
+        labels: ['1 Month ago', '2 Months ago', '3 Months ago', '4 Months ago'],
             datasets: [{
             barPercentage: 0.5,
             barThickness: 6,
             maxBarThickness: 8,
             minBarLength: 2,
+            label: 'Occupancy Count',
             //backgroundColor: ['rgb(2, 99, 182)','rgb(145, 145, 145)','rgb(2, 99, 182)','rgb(145, 145, 145)'],
             backgroundColor: 'rgb(2, 99, 182)',
             data: [prevOneMonthTotal, prevTwoMonthTotal, prevThreeMonthTotal, prevFourMonthTotal]
@@ -91,7 +92,7 @@
         options: {
             title: {
                 display: true,
-                text: 'Bar'
+                text: 'Total Occupancy per Month'
             },    
             scales: {
                 yAxes: [
