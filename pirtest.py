@@ -5,7 +5,13 @@ from writeFromRPIToDb import post
 
 start_time = time.time()
 counter = 0
+roomID = '1'
 occupancyValue = '0'
+server = 'room-occupancy.database.windows.net'
+database = 'RoomsDB'
+username = 'user'
+password = 'Capstone20'
+driver= '{ODBC Driver 17 for SQL Server}'
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -24,7 +30,7 @@ while True:
     elapsed_time = current_time - start_time
     
     if (elasped_time > 60):
-        post(occupancyValue)
+        post(occupancyValue, driver, server, database, username, password)
         occupancyValue = '0'
         counter = 0
         start_time = time.time()
