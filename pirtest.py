@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import pyodbc
-from writeFromRPIToDb import post
+from writeFromRPIToDB import post
 
 start_time = time.time()
 counter = 0
@@ -15,22 +15,29 @@ driver= '{ODBC Driver 17 for SQL Server}'
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(26, GPIO.IN)
+GPIO.setup(11, GPIO.IN)
                 
 while True:
-    i=GPIO.input(26)
+    i=GPIO.input(11)
     
     if i==1:
         counter += 1
+        print("motion detected")
         
     if counter > 5:
         occupancyValue = '1'
+        post(occupancyValue, roomID)
     
+<<<<<<< HEAD
     current_time = time.time()
     elapsed_time = current_time - start_time
     
     if (elasped_time > 60):
         post(occupancyValue, driver, server, database, username, password)
+=======
+    if ((time.time() - start_time) > 60):
+>>>>>>> 8632c9abe522fa634bd80e56ce68813c207b5432
         occupancyValue = '0'
+        post(occupancyValue, roomID)
         counter = 0
         start_time = time.time()
