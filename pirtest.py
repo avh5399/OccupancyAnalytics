@@ -5,6 +5,7 @@ from writeFromRPIToDb import post
 
 start_time = time.time()
 counter = 0
+roomID = '1'
 occupancyValue = '0'
 
 GPIO.setwarnings(False)
@@ -16,15 +17,13 @@ while True:
     
     if i==1:
         counter += 1
+        print("motion detected")
         
     if counter > 5:
         occupancyValue = '1'
     
-    current_time = time.time()
-    elapsed_time = current_time - start_time
-    
-    if (elasped_time > 60):
-        post(occupancyValue)
+    if ((time.time() - start_time) > 60):
+        post(occupancyValue, roomID)
         occupancyValue = '0'
         counter = 0
         start_time = time.time()
