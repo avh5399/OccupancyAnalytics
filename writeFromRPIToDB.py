@@ -13,7 +13,7 @@ password = 'Capstone20'
 driver= '{ODBC Driver 17 for SQL Server}'
 
 
-def post(occupancyValue):
+def post(occupancyValue, roomID):
     with pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
         with conn.cursor() as cursor:
             cursor.execute("SELECT * FROM rooms")
