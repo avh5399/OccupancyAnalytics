@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import pyodbc
-from writeFromRPIToDb import post
+from writeFromRPIToDB import post
 
 start_time = time.time()
 counter = 0

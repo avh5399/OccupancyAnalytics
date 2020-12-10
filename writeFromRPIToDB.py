@@ -1,5 +1,6 @@
 import pyodbc
-#pip3 install pyodbc
+#> sudo apt install unixodbc-dev
+#> pip3 install pyodbc
 #if that fails and you're on macOS, try brew install unixodbc and then pip3 install pyodbc
 #still errors? Try this https://github.com/mkleehammer/pyodbc/issues/717 and https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver15
 
