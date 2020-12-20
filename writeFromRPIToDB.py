@@ -2,11 +2,6 @@ import pyodbc
 #> sudo apt-get install freetds-dev freetds-bin unixodbc-dev tdsodbc
 #> pip3 install pyodbc sqlalchemy
 
-<<<<<<< HEAD
-
-def post(occupancyValue, driver, server, database, username, password):
-    with pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
-=======
 # Make sure you have /etc/odbcinst.ini with the following inside:
 # (If you don't, then create a file, put the following inside:)
 #    [FreeTDS]
@@ -27,7 +22,6 @@ driver= 'FreeTDS'
 
 def post(occupancyValue, roomID):
     with pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password + ';TDS_Version=8.0') as conn:
->>>>>>> 8632c9abe522fa634bd80e56ce68813c207b5432
         with conn.cursor() as cursor:
             cursor.execute("SELECT * FROM sensors")
             #If room Does not exist
